@@ -9,6 +9,13 @@
 
   --sans: 'Inter', system-ui, sans-serif;
 
+  /* Police du côté Creative : changer cette ligne pour tester
+     'Afacad Flux' ou 'Manrope' (penser à les charger dans index.html) */
+  --font-creative: 'Unbounded', var(--sans);
+  --font-creative-weight: 200;
+  /* Ajuste la taille pour égaliser la hauteur avec Inter */
+  --font-creative-scale: 0.85;
+
   /* Taille du bloc central */
   --symbol: clamp(120px, 14vw, 200px);
 
@@ -26,42 +33,73 @@ body {
 .home {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* moitiés toujours égales, même si un texte est large */
   min-height: 100svh;
 }
 
-/* Titre à cheval sur les deux moitiés : foncé à gauche, clair à droite */
+/* Titre à cheval sur les deux moitiés :
+   « MÉL » (Creative) finit sur la ligne centrale, « INA » (Tech) y commence */
 .title {
+  --title-size: clamp(2.25rem, 5vw, 4rem);
+  --title-spacing: 0.4;
+
   position: absolute;
   top: 48px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: 2;
   margin: 0;
-  padding-left: 0.4em; /* compense l'espacement des lettres pour bien centrer */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: baseline;
+  font-size: var(--title-size);
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.title span {
+  letter-spacing: calc(var(--title-size) * var(--title-spacing));
+}
+
+.title__creative {
+  /* lettres plus larges qu'Inter : espacement réduit pour garder le même rythme */
+  --title-spacing: 0.3;
+
+  justify-self: end;
+  /* l'espace entre L et I est partagé de part et d'autre de la ligne */
+  margin-right: calc(var(--title-size) * var(--title-spacing) / -2);
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  /* un peu plus petit que « INA » : les lettres d'Unbounded, plus larges, paraissent plus grosses */
+  font-size: calc(var(--title-size) * 0.93);
+  color: var(--charcoal);
+}
+
+.title__tech {
+  justify-self: start;
+  padding-left: calc(var(--title-size) * var(--title-spacing) / 2);
   font-family: var(--sans);
-  font-weight: 200;
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  letter-spacing: 0.4em;
-  background: linear-gradient(90deg, var(--charcoal) 50%, var(--off-white) 50%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-weight: 250;
+  color: var(--off-white);
 }
 
 .side {
+  --h2-size: clamp(2rem, 4.5vw, 3.75rem);
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* contenu calé en haut, à la même hauteur des deux côtés */
+  justify-content: flex-start;
   gap: 40px;
-  padding: 180px 8vw 80px;
+  padding: max(180px, 38svh) 8vw 80px;
 }
 
 .side h2 {
   margin: 0;
   font-weight: 300;
-  font-size: clamp(2rem, 4.5vw, 3.75rem);
-  line-height: 1;
+  font-size: var(--h2-size);
+  /* hauteur de ligne fixe : les titres ont la même hauteur même si leur police diffère */
+  line-height: var(--h2-size);
   letter-spacing: 0.3em;
 }
 
@@ -90,17 +128,35 @@ body {
     color 0.3s;
 }
 
-/* Gauche : chaud, doux, avec un léger grain */
+/* Gauche : chaud, doux, texture organique, en 3 couches de bas en haut :
+   taches de lumière, traînées floues (comme un pinceau très effacé), grain de papier */
 .side--creative {
   align-items: flex-start;
   padding-right: calc(var(--symbol) / 2 + 4vw);
   background-color: var(--sand);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.31 0 0 0 0 0.25 0 0 0 -1.4 0.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.018' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.93 0 0 0 0 0.86 2.2 0 0 0 -1.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.12'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 40% at 22% 28%, rgba(240, 228, 208, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 78% 72%, rgba(196, 176, 150, 0.35), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 15% 85%, rgba(232, 218, 196, 0.25), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 70% 18%, rgba(205, 188, 164, 0.25), transparent 70%);
+  background-size: 220px 220px, 900px 900px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   color: var(--charcoal);
 }
 
+.side--creative h2,
 .side--creative a {
-  border-radius: 999px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+}
+
+.side--creative h2 {
+  font-size: calc(var(--h2-size) * var(--font-creative-scale));
+}
+
+.side--creative a {
+  border-radius: 14px;
   color: var(--warm-grey);
 }
 
@@ -115,10 +171,14 @@ body {
   text-align: right;
   padding-left: calc(var(--symbol) / 2 + 4vw);
   background-color: var(--slate);
+  /* fine grille + grille large plus discrète + léger dégradé pour la profondeur */
   background-image:
-    linear-gradient(rgba(236, 232, 224, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(236, 232, 224, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+    linear-gradient(rgba(236, 232, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236, 232, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(211, 214, 218, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(211, 214, 218, 0.05) 1px, transparent 1px),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(30, 34, 40, 0.06));
+  background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px, 100% 100%;
   color: var(--off-white);
 }
 
@@ -173,15 +233,17 @@ body {
 
   .title {
     top: 40px;
-    background: var(--charcoal);
-    -webkit-background-clip: text;
-    background-clip: text;
+  }
+
+  .title__tech {
+    color: var(--charcoal);
   }
 
   .side,
   .side--creative,
   .side--tech {
     align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 140px 24px 100px;
   }

@@ -1,0 +1,424 @@
+/* Page DEV : même univers que le côté Tech de la homepage */
+
+/* Fond gris froid + même grille discrète que .side--tech
+   (« :root » et non « html » pour passer devant le beige défini dans style.css) */
+:root {
+  background-color: var(--slate);
+  background-image:
+    linear-gradient(rgba(236, 232, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236, 232, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(211, 214, 218, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(211, 214, 218, 0.05) 1px, transparent 1px),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(30, 34, 40, 0.06));
+  background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px, 100% 100%;
+  background-attachment: fixed;
+  color: var(--off-white);
+}
+
+/* Couleur des lignes fines */
+.dev {
+  --line: rgba(236, 232, 224, 0.28);
+  /* même gris clair, atténué : pour les éléments secondaires */
+  --muted: rgba(211, 214, 218, 0.8);
+  /* couleur d'accent : sable désaturé, rappel du côté Creative (à utiliser avec parcimonie) */
+  --accent: #d9c49c;
+
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 8vw 120px;
+  font-weight: 300;
+}
+
+/* Retour à la homepage : bouton encadré, comme les boutons Tech de l'accueil */
+.back {
+  display: inline-block;
+  padding: 12px 22px 12px calc(22px + 0.3em);
+  border: 1px solid var(--line);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--off-white);
+  text-decoration: none;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
+}
+
+.back:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dev__header {
+  margin: 120px 0 180px;
+}
+
+.dev__header h1 {
+  margin: 0;
+  font-weight: 300;
+  /* titre principal : nettement plus grand que tout le reste */
+  font-size: clamp(4rem, 10vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: 0.3em;
+}
+
+.dev__header p {
+  margin: 36px 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--cool-grey);
+}
+
+/* Chaque section : un titre sur une fine ligne */
+.block {
+  position: relative;
+  margin-bottom: 180px;
+  padding-top: 44px;
+  border-top: 1px solid var(--line);
+}
+
+/* petit trait d'accent au début de la ligne de chaque section */
+.block::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 120px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.block h2 {
+  margin: 0 0 64px;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: 0.3em;
+  color: var(--off-white);
+}
+
+.block ul,
+.block ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* TOOLS */
+.tools {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+/* PROJECTS : cadres rectangulaires nets */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 32px 28px;
+  border: 1px solid var(--line);
+}
+
+.project__name {
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+}
+
+/* Meily Lab : carte mise en avant (fond un peu plus clair, cadre plus net) */
+.project:not(.project--placeholder) {
+  padding: 40px 36px;
+  border-color: rgba(236, 232, 224, 0.45);
+  background: rgba(236, 232, 224, 0.06);
+  transition: border-color 0.3s;
+}
+
+.project:not(.project--placeholder):hover {
+  border-color: var(--accent);
+}
+
+.project:not(.project--placeholder) .project__name {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.project__status {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Projet à venir : cadre en pointillés, texte atténué */
+.project--placeholder {
+  border-style: dashed;
+  border-color: rgba(236, 232, 224, 0.18);
+  color: rgba(236, 232, 224, 0.35);
+}
+
+/* PROCESS : étapes numérotées, reliées par une ligne */
+.process {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+/* La ligne qui traverse toutes les étapes */
+.process::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.step {
+  position: relative; /* passe au-dessus de la ligne */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 120px;
+  padding: 20px 16px;
+  border: 1px solid rgba(236, 232, 224, 0.4);
+  /* un peu plus clair que le fond pour que les cartes ressortent */
+  background: #74787e;
+  transition: border-color 0.3s;
+}
+
+.step:hover {
+  border-color: var(--accent);
+}
+
+.step__number {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+}
+
+.step__name {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+
+/* --- Contenu enrichi --- */
+
+/* Petit libellé en majuscules espacées (BUILD, Role, Stack…) */
+.label {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* introduction : plus petite et plus pâle que le sous-titre */
+.dev__header .dev__intro {
+  max-width: 560px;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  color: var(--cool-grey);
+}
+
+/* TOOLS : libellé à gauche, outils à droite */
+.tool-group {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: baseline;
+}
+
+/* PROJECTS : carte Meily Lab détaillée */
+.project:not(.project--placeholder) {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+}
+
+/* Le projet à venir garde son nom en haut, comme Meily Lab */
+.project--placeholder {
+  align-items: flex-start;
+}
+
+.project__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.project__desc {
+  margin: 0;
+  color: var(--cool-grey);
+}
+
+.project__details {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px 16px;
+  align-items: baseline;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.project__details dd {
+  margin: 0;
+}
+
+/* Lien vers le dépôt : discret, en bas de la carte */
+.project__link {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cool-grey);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4px;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+
+a.project__link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Pas encore d'adresse : lien grisé */
+.project__link--disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* PROCESS : micro-description sous chaque étape */
+.step__desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--cool-grey);
+}
+
+/* PROGRESS : journal d'apprentissage, une ligne fine entre chaque entrée */
+.entry {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.entry:first-child {
+  padding-top: 0;
+}
+
+.entry__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry__date {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.entry__title {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.entry__text {
+  max-width: 620px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--cool-grey);
+}
+
+/* Écrans moyens : 3 étapes par ligne */
+@media (max-width: 960px) {
+  .process {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile : étapes empilées, la ligne devient verticale */
+@media (max-width: 600px) {
+  .dev {
+    padding: 32px 24px 80px;
+  }
+
+  .dev__header {
+    margin: 80px 0 100px;
+  }
+
+  .block {
+    margin-bottom: 120px;
+  }
+
+  .process {
+    grid-template-columns: 1fr;
+  }
+
+  .process::before {
+    top: 0;
+    bottom: 0;
+    left: 28px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  /* numéro à gauche, nom + description à droite */
+  .step {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 6px 12px;
+    align-items: baseline;
+    min-height: 0;
+  }
+
+  .step__desc {
+    grid-column: 2;
+  }
+
+  .tool-group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .entry {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .entry__meta {
+    flex-direction: row;
+    gap: 16px;
+    align-items: baseline;
+  }
+}
