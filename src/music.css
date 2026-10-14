@@ -1,0 +1,220 @@
+/* Page MUSIC : même univers que le côté Creative de la homepage */
+
+/* Fond sable + même texture organique que .side--creative et la page VISUALS */
+:root {
+  background-color: var(--sand);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.31 0 0 0 0 0.25 0 0 0 -1.4 0.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.018' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.93 0 0 0 0 0.86 2.2 0 0 0 -1.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.12'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 40% at 22% 28%, rgba(240, 228, 208, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 78% 72%, rgba(196, 176, 150, 0.35), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 15% 85%, rgba(232, 218, 196, 0.25), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 70% 18%, rgba(205, 188, 164, 0.25), transparent 70%);
+  background-size: 220px 220px, 900px 900px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  color: var(--charcoal);
+}
+
+.music {
+  --line: rgba(95, 87, 78, 0.25);
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 6vw 140px;
+}
+
+/* Retour à la homepage : bouton arrondi, comme sur VISUALS */
+.back {
+  display: inline-block;
+  padding: 12px 22px 12px calc(22px + 0.25em);
+  border: 1px solid rgba(95, 87, 78, 0.35);
+  border-radius: 14px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.back:hover {
+  color: var(--charcoal);
+  background-color: rgba(236, 232, 224, 0.45);
+}
+
+.music__header {
+  margin: 120px 0 160px;
+}
+
+.music__header h1 {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+/* Phrase d'introduction : très discrète */
+.music__header p {
+  margin: 32px 0 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--warm-grey);
+}
+
+/* Plateformes : une ligne de liens discrets */
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(95, 87, 78, 0.3);
+  border-radius: 14px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+/* Logo : sa couleur officielle est donnée dans music.js */
+.platform__logo {
+  width: 14px;
+  height: 14px;
+}
+
+a.platform:hover {
+  color: var(--charcoal);
+  background-color: rgba(236, 232, 224, 0.45);
+}
+
+/* Pas encore d'adresse : lien grisé */
+.platform--disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.music h2 {
+  margin: 0 0 40px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  letter-spacing: 0.25em;
+}
+
+/* Liste des morceaux : une ligne fine entre chaque */
+.tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Une musique = une ligne : cover | titre | clip */
+.track {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  align-items: center;
+  gap: 40px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Placeholders provisoires : bloc sable plus clair, cadre en pointillés */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(95, 87, 78, 0.3);
+  border-radius: 6px;
+  background: rgba(236, 232, 224, 0.4);
+  transition: background-color 0.4s;
+}
+
+.placeholder span {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(95, 87, 78, 0.6);
+}
+
+.track:hover .placeholder {
+  background: rgba(236, 232, 224, 0.6);
+}
+
+.track__cover {
+  aspect-ratio: 1 / 1;
+}
+
+.track__title {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.track__date {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--warm-grey);
+}
+
+/* Clip : format vertical (Reels, TikTok, Shorts) */
+.track__video {
+  aspect-ratio: 9 / 16;
+}
+
+.track__no-video {
+  justify-self: end;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(95, 87, 78, 0.55);
+}
+
+/* Mobile : cover + titre sur une ligne, clip en dessous */
+@media (max-width: 700px) {
+  .music {
+    padding: 32px 24px 80px;
+  }
+
+  .music__header {
+    margin: 80px 0 100px;
+  }
+
+  .track {
+    grid-template-columns: 88px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+  }
+
+  /* clip vertical : largeur limitée pour qu'il ne devienne pas immense */
+  .track__video {
+    grid-column: 1 / -1;
+    width: 60%;
+  }
+
+  .track__no-video {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

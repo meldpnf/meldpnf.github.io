@@ -39,7 +39,7 @@ Validated homepage with Unbounded / Inter split title and subtle textures on bot
 Not applicable
 
 **Related Git commit**
-Not documented (changes not committed yet)
+3c17d88 — Refine homepage and add DEV page and learning docs
 
 ## 2026-10-10 — [TOOLING] — Work environment and AI-assisted workflow setup
 
@@ -71,4 +71,4 @@ Working Vite project, personal and project-level CLAUDE.md files, learning log a
 Not applicable
 
 **Related Git commit**
-Not documented (changes not committed yet)
+3c17d88 — Refine homepage and add DEV page and learning docs

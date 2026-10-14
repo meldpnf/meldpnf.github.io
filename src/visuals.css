@@ -1,0 +1,179 @@
+/* Page VISUALS : même univers que le côté Creative de la homepage */
+
+/* Fond sable + même texture organique que .side--creative
+   (grain de papier, traînées floues, taches de lumière) */
+:root {
+  background-color: var(--sand);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.31 0 0 0 0 0.25 0 0 0 -1.4 0.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.018' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.93 0 0 0 0 0.86 2.2 0 0 0 -1.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.12'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 40% at 22% 28%, rgba(240, 228, 208, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 78% 72%, rgba(196, 176, 150, 0.35), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 15% 85%, rgba(232, 218, 196, 0.25), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 70% 18%, rgba(205, 188, 164, 0.25), transparent 70%);
+  background-size: 220px 220px, 900px 900px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  color: var(--charcoal);
+}
+
+.visuals {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 6vw 140px;
+}
+
+/* Retour à la homepage : bouton arrondi, comme les liens Creative de l'accueil */
+.back {
+  display: inline-block;
+  padding: 12px 22px 12px calc(22px + 0.25em);
+  border: 1px solid rgba(95, 87, 78, 0.35);
+  border-radius: 14px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.back:hover {
+  color: var(--charcoal);
+  background-color: rgba(236, 232, 224, 0.45);
+}
+
+.visuals__header {
+  margin: 120px 0 160px;
+}
+
+.visuals__header h1 {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+/* Phrase d'introduction : très discrète */
+.visuals__header p {
+  margin: 32px 0 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--warm-grey);
+}
+
+/* Chaque série : un titre discret puis sa galerie */
+.series {
+  margin-bottom: 180px;
+}
+
+.series h2 {
+  margin: 0 0 56px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  letter-spacing: 0.25em;
+}
+
+/* Sous-sections MAIN / ASTROLOGY : petit libellé discret */
+.series h3 {
+  margin: 0 0 32px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--warm-grey);
+}
+
+/* espace entre MAIN et ASTROLOGY */
+.series .gallery + h3 {
+  margin-top: 64px;
+}
+
+/* Masonry : le navigateur répartit les cartes dans des colonnes,
+   chacune garde sa propre hauteur, sans trous */
+.gallery {
+  columns: 3;
+  column-gap: 40px;
+}
+
+.card {
+  /* une carte ne doit jamais être coupée entre deux colonnes */
+  break-inside: avoid;
+  margin: 0 0 56px;
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card__cover {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Placeholder provisoire : bloc sable plus clair, cadre en pointillés */
+.card__cover--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(236, 232, 224, 0.4);
+  border: 1px dashed rgba(95, 87, 78, 0.3);
+  transition: background-color 0.4s;
+}
+
+.card:hover .card__cover--placeholder {
+  background: rgba(236, 232, 224, 0.6);
+}
+
+.card__cover--placeholder span {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(95, 87, 78, 0.6);
+}
+
+.card__title {
+  margin-top: 16px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--warm-grey);
+  transition: color 0.4s;
+}
+
+.card:hover .card__title {
+  color: var(--charcoal);
+}
+
+/* Tablette : 2 colonnes */
+@media (max-width: 900px) {
+  .gallery {
+    columns: 2;
+    column-gap: 28px;
+  }
+}
+
+/* Mobile : 1 colonne */
+@media (max-width: 560px) {
+  .visuals {
+    padding: 32px 24px 80px;
+  }
+
+  .visuals__header {
+    margin: 80px 0 100px;
+  }
+
+  .series {
+    margin-bottom: 120px;
+  }
+
+  .gallery {
+    columns: 1;
+  }
+}

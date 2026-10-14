@@ -8,6 +8,9 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
         dev: resolve(import.meta.dirname, 'dev/index.html'),
+        qa: resolve(import.meta.dirname, 'qa/index.html'),
+        visuals: resolve(import.meta.dirname, 'visuals/index.html'),
+        music: resolve(import.meta.dirname, 'music/index.html'),
       },
     },
   },

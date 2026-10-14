@@ -9,8 +9,8 @@ document.querySelector('#app').innerHTML = `
     <section class="side side--creative">
       <h2>CREATIVE</h2>
       <ul>
-        <li><a href="#">VISUALS</a></li>
-        <li><a href="#">MUSIC</a></li>
+        <li><a href="/visuals/">VISUALS</a></li>
+        <li><a href="/music/">MUSIC</a></li>
         <li><a href="#">SOCIAL</a></li>
       </ul>
     </section>
@@ -21,7 +21,7 @@ document.querySelector('#app').innerHTML = `
       <h2>TECH</h2>
       <ul>
         <li><a href="/dev/">DEV</a></li>
-        <li><a href="#">QA</a></li>
+        <li><a href="/qa/">QA</a></li>
       </ul>
     </section>
   </main>
