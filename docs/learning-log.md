@@ -72,3 +72,36 @@ Not applicable
 
 **Related Git commit**
 3c17d88 — Refine homepage and add DEV page and learning docs
+
+## 2026-10-14 — [DEV] — QA, VISUALS and MUSIC pages (first versions)
+
+**Task**
+Create first versions of three new pages: QA (Tech side), VISUALS and MUSIC (Creative side), with placeholders and local data prepared for future Instagram / Spotify APIs.
+
+**My role**
+- Defined the structure, content and visual direction of each page (QA as an investigation space, masonry gallery for VISUALS, one track = one line for MUSIC)
+- Defined the future data logic: hashtags for classification (#meily_main, #meily_astrology, #meily_collab, #meily_track_…), one global Art Experiment numbering, one clip per track
+- Reviewed the results and requested changes (vertical 9:16 clips, platform logos in original colours)
+- Edited code myself: changed the QA accent colour, added a sentence to the QA header, moved a post to ASTROLOGY by changing its hashtag, changed the font size of the MAIN / ASTROLOGY headings
+- Provided the artist platform links
+
+**AI-assisted work**
+- Claude Code wrote the HTML / CSS / JS for the three pages, the local data structures and the hashtag classification function
+- Claude Code installed Simple Icons for the platform logos and checked the pages with headless screenshots and a production build
+
+**Tools / concepts**
+Vite multi-page setup, JavaScript template literals (HTML generated from JS), arrays of objects as local data, `filter` / `map`, CSS grid, CSS `columns` (masonry), `aspect-ratio`, `rem` unit, SVG logos (Simple Icons), npm dependency
+
+**Result**
+Three new pages linked from the homepage, ready to be fed by real data later without rebuilding the layout.
+
+**What I learned**
+- Why the page HTML can be generated from JavaScript: data written once per item, layout written once
+- The roles of HTML (structure), CSS (appearance) and JavaScript (behaviour)
+- Where to find and change a style: selector (e.g. `.series h3`) and property (e.g. `font-size`)
+
+**Related QA exercise**
+Not applicable
+
+**Related Git commit**
+cb1dcff — Build visuals and music pages
