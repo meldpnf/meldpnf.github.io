@@ -1,0 +1,864 @@
+/* Pages SOCIAL (MEILY, CATHY) : même univers Creative que VISUALS et MUSIC,
+   un peu plus structuré puisqu'on présente des études de cas */
+
+/* Fond sable + même texture organique que VISUALS et MUSIC */
+:root {
+  background-color: var(--sand);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.31 0 0 0 0 0.25 0 0 0 -1.4 0.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.09'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0025 0.018' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.97 0 0 0 0 0.93 0 0 0 0 0.86 2.2 0 0 0 -1.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.12'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 40% at 22% 28%, rgba(240, 228, 208, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 78% 72%, rgba(196, 176, 150, 0.35), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 15% 85%, rgba(232, 218, 196, 0.25), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 70% 18%, rgba(205, 188, 164, 0.25), transparent 70%);
+  background-size: 220px 220px, 900px 900px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+  color: var(--charcoal);
+}
+
+.social {
+  --line: rgba(95, 87, 78, 0.25);
+  --soft: rgba(236, 232, 224, 0.45);
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 6vw 140px;
+}
+
+/* Retour à la homepage : bouton arrondi, comme sur VISUALS et MUSIC */
+.back {
+  display: inline-block;
+  padding: 12px 22px 12px calc(22px + 0.25em);
+  border: 1px solid rgba(95, 87, 78, 0.35);
+  border-radius: 14px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.back:hover {
+  color: var(--charcoal);
+  background-color: var(--soft);
+}
+
+/* ─── En-tête SOCIAL (identique sur les deux projets) ─── */
+
+.social__header {
+  margin: 120px 0 64px;
+}
+
+.social__header h1 {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+
+.social__header p {
+  margin: 32px 0 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--warm-grey);
+}
+
+/* ─── Navigation entre projets : deux onglets de même taille ─── */
+
+.projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 520px;
+  margin-bottom: 120px;
+}
+
+.project-tab {
+  padding: 18px 0 18px 0.3em; /* 0.3em : compense l'espace ajouté après la dernière lettre */
+  border: 1px solid rgba(95, 87, 78, 0.3);
+  border-radius: 14px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-align: center;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.project-tab:hover {
+  color: var(--charcoal);
+  background-color: var(--soft);
+}
+
+/* Projet affiché : fond clair + contour foncé */
+.project-tab[aria-current='page'] {
+  color: var(--charcoal);
+  border-color: var(--charcoal);
+  background-color: rgba(236, 232, 224, 0.7);
+}
+
+
+/* ─── Commun aux deux projets ─── */
+
+.case__title {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0.25em;
+}
+
+.case__subtitle {
+  margin: 20px 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+.case__lead {
+  max-width: 560px;
+  margin: 32px 0 0;
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Photo / logo rond, comme sur les réseaux */
+.avatar {
+  width: clamp(140px, 22vw, 240px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.heading {
+  margin: 0 0 40px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  letter-spacing: 0.2em;
+}
+
+.kicker {
+  margin: 0 0 14px;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+.text {
+  max-width: 600px;
+  margin: 0;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.text + .text {
+  margin-top: 16px;
+}
+
+.note {
+  margin: 20px 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--warm-grey);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tags li {
+  padding: 6px 14px;
+  border: 1px solid rgba(95, 87, 78, 0.3);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--warm-grey);
+}
+
+/* Étapes en ligne, reliées par des flèches (passent à la ligne si besoin) */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.flow li {
+  position: relative;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+}
+
+/* Flèche après chaque étape (sauf la dernière) : si la ligne se coupe,
+   elle reste en fin de ligne au lieu de flotter au début de la suivante */
+.flow li:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -22px;
+  color: var(--warm-grey);
+}
+
+.shot {
+  margin: 0;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.shot figcaption {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--warm-grey);
+}
+
+/* Emplacement provisoire : cadre en pointillés */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px dashed rgba(95, 87, 78, 0.35);
+  border-radius: inherit;
+  background: rgba(236, 232, 224, 0.4);
+  text-align: center;
+}
+
+.placeholder span {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(95, 87, 78, 0.6);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+}
+
+.metric__value {
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+}
+
+.metric__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+/* Chiffre pas encore renseigné : plus discret */
+.metric--empty .metric__value {
+  opacity: 0.5;
+}
+
+/* Boutons plateformes : même principe que la page MUSIC */
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(95, 87, 78, 0.3);
+  border-radius: 14px;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+/* Logo : sa couleur officielle est donnée dans social.js */
+.platform__logo {
+  width: 14px;
+  height: 14px;
+}
+
+.platform:hover {
+  color: var(--charcoal);
+  background-color: rgba(236, 232, 224, 0.6);
+}
+
+/* ─── MEILY : libre, fluide, formes douces, mise en page décalée ─── */
+
+/* Couleur propre à Meily : un violet poudré, utilisé seulement en petites touches.
+   Changer ces deux lignes suffit pour tester une autre teinte. */
+.social--meily {
+  --m-accent: #7a6491;
+  --m-accent-soft: rgba(122, 100, 145, 0.14);
+}
+
+.social--meily .heading::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 16px;
+  border-radius: 50%;
+  background: var(--m-accent);
+  vertical-align: middle;
+}
+
+.social--meily .kicker {
+  color: var(--m-accent);
+}
+
+.social--meily .platform:hover {
+  border-color: var(--m-accent);
+}
+
+.social--meily > section {
+  margin-top: 160px;
+}
+
+.m-hero {
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+}
+
+.m-hero .avatar {
+  box-shadow:
+    0 0 0 10px rgba(236, 232, 224, 0.5),
+    0 0 0 11px var(--m-accent);
+}
+
+.m-hero .platforms {
+  margin-top: 32px;
+}
+
+/* About : grande phrase à gauche, précisions décalées à droite */
+.m-about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 32px 64px;
+}
+
+.m-about .heading,
+.m-about__role {
+  grid-column: 1 / -1;
+}
+
+.m-about__story {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  line-height: 1.6;
+}
+
+.m-about__story em {
+  font-style: normal;
+  background: linear-gradient(transparent 60%, var(--m-accent-soft) 60%);
+}
+
+.m-about__side {
+  padding-top: 120px; /* décalage volontaire : effet asymétrique */
+}
+
+/* Workflow : trois bulles aux formes organiques, à des hauteurs différentes */
+.bubbles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.bubble {
+  padding: 40px 32px;
+  background: rgba(236, 232, 224, 0.55);
+  border-radius: 60px 60px 60px 12px;
+}
+
+.bubble:nth-child(2) {
+  margin-top: 64px;
+  border-radius: 60px 12px 60px 60px;
+}
+
+.bubble:nth-child(3) {
+  margin-top: 24px;
+  border-radius: 12px 60px 60px 60px;
+}
+
+.bubble h4 {
+  margin: 0 0 16px;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  letter-spacing: 0.25em;
+}
+
+.bubble .tags {
+  margin-top: 24px;
+}
+
+/* Release : étapes en pastilles arrondies */
+.m-release .flow li {
+  border-radius: 999px;
+  background: rgba(236, 232, 224, 0.55);
+}
+
+.m-release .flow li:not(:last-child)::after {
+  color: var(--m-accent);
+}
+
+.m-release .text {
+  margin-top: 32px;
+}
+
+/* Social presence : deux cartes compactes, une par rôle */
+.channels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 900px;
+}
+
+.channel {
+  padding: 32px;
+  border-radius: 40px 40px 40px 12px;
+  background: rgba(236, 232, 224, 0.55);
+}
+
+.channel:nth-child(2) {
+  margin-top: 40px;
+  border-radius: 40px 12px 40px 40px;
+}
+
+.channel .platforms {
+  margin-top: 24px;
+}
+
+/* Growth : bloc final, chiffres en grand + résultats observés */
+.growth {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 40px;
+  border-radius: 48px;
+  background: var(--m-accent-soft);
+}
+
+.growth .metric {
+  padding: 0;
+}
+
+.growth .metric__value {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--m-accent);
+}
+
+.growth__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.growth__list li {
+  padding: 10px 0 10px 24px;
+  position: relative;
+  font-weight: 300;
+}
+
+.growth__list li::before {
+  content: '↗';
+  position: absolute;
+  left: 0;
+  color: var(--m-accent);
+}
+
+/* ─── CATHY : grille nette, touches jaune / noir / blanc / rouge ─── */
+
+.social--cathy {
+  --c-yellow: #f7c63c;
+  --c-red: #d22d2b;
+  --c-black: #1b1b1b;
+  --c-white: #fbfaf7;
+}
+
+.c-hero {
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+  padding-bottom: 64px;
+  border-bottom: 4px solid var(--c-yellow);
+}
+
+.c-hero .avatar {
+  background: var(--c-white);
+  border: 2px solid var(--c-black);
+}
+
+.c-scope {
+  margin: 28px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(27, 27, 27, 0.15);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.c-hero .note {
+  margin-top: 10px;
+}
+
+.c-section {
+  padding: 96px 0;
+  border-bottom: 1px solid rgba(27, 27, 27, 0.15);
+}
+
+.c-section .heading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.heading__number {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--c-red);
+}
+
+.c-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px;
+}
+
+.c-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 300;
+}
+
+.c-list li {
+  padding: 10px 0 10px 20px;
+  border-bottom: 1px solid rgba(27, 27, 27, 0.12);
+  position: relative;
+}
+
+.c-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.15em;
+  width: 8px;
+  height: 2px;
+  background: var(--c-red);
+}
+
+/* Avant / après : deux colonnes de même largeur, une ligne par sujet */
+.ba {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin-top: 64px;
+  padding: 32px;
+  background: var(--c-white);
+}
+
+.ba__label {
+  justify-self: start;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--c-white);
+  background: var(--c-black);
+}
+
+.ba__label--after {
+  color: var(--c-black);
+  background: var(--c-yellow);
+}
+
+/* Sujet comparé : ligne fine sur toute la largeur */
+.ba__topic {
+  grid-column: 1 / -1;
+  margin: 24px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(27, 27, 27, 0.12);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-red);
+}
+
+.ba__cell img {
+  border-radius: 8px;
+}
+
+.ba__cell--after {
+  outline: 2px solid var(--c-yellow);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* Nouvelle couverture + sa version 9:16, à la même hauteur */
+.ba__cover {
+  display: grid;
+  grid-template-columns: 2.4fr 0.5625fr;
+  gap: 8px;
+}
+
+/* Piliers : trois colonnes, barre de couleur en haut */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.pillar {
+  padding: 28px 24px;
+  background: var(--c-white);
+  border-top: 4px solid var(--c-black);
+}
+
+.pillar:nth-child(2) {
+  border-top-color: var(--c-yellow);
+}
+
+.pillar:nth-child(3) {
+  border-top-color: var(--c-red);
+}
+
+.pillar h4 {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+}
+
+.c-friday {
+  max-width: 720px;
+  margin: 40px 0 0;
+  padding-left: 20px;
+  border-left: 3px solid var(--c-yellow);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Production : une ligne par processus */
+.process {
+  padding: 24px 0;
+  border-top: 1px solid rgba(27, 27, 27, 0.12);
+}
+
+.process .note {
+  margin-top: 12px;
+}
+
+.social--cathy .flow li {
+  background: var(--c-white);
+  border: 1px solid rgba(27, 27, 27, 0.15);
+}
+
+/* Summer Discovery : bloc phare, avec une grande place pour la capture Notion */
+.summer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: 40px;
+  align-items: center;
+  padding: 40px;
+  background: var(--c-white);
+  border-left: 6px solid var(--c-yellow);
+}
+
+.summer__title {
+  margin: 0 0 20px;
+  font-family: var(--font-creative);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  letter-spacing: 0.1em;
+  color: var(--c-black);
+}
+
+.summer .c-list {
+  font-size: 0.9rem;
+}
+
+.summer .tags {
+  margin-top: 24px;
+}
+
+.c-local {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.c-case {
+  padding: 32px 40px;
+  border: 1px solid rgba(27, 27, 27, 0.15);
+}
+
+.c-case .kicker {
+  color: var(--c-red);
+}
+
+/* Résultats : les nouveaux clients en grand, les chiffres Meta à côté */
+.c-results {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 16px;
+}
+
+.c-results__main {
+  grid-row: span 2;
+  display: flex;
+  align-items: center;
+  background: var(--c-black);
+}
+
+.c-results__main .metric__value {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--c-yellow);
+}
+
+.c-results__main .metric__label {
+  color: var(--c-white);
+}
+
+.c-results__platform {
+  padding: 20px;
+  background: var(--c-white);
+}
+
+.c-results__platform .metric {
+  padding: 8px 0;
+}
+
+/* ─── Mobile : une seule colonne ─── */
+@media (max-width: 760px) {
+  .social {
+    padding: 32px 16px 80px;
+  }
+
+  .social__header {
+    margin: 80px 0 48px;
+  }
+
+  .projects {
+    margin-bottom: 80px;
+  }
+
+  .m-hero,
+  .c-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .social--meily > section {
+    margin-top: 100px;
+  }
+
+  .m-about,
+  .bubbles,
+  .channels,
+  .growth,
+  .c-local,
+  .c-cols,
+  .ba,
+  .pillars,
+  .summer,
+  .c-results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .m-about__side {
+    padding-top: 0;
+  }
+
+  .bubble:nth-child(n) {
+    margin-top: 0;
+  }
+
+  .channel:nth-child(n) {
+    margin-top: 0;
+  }
+
+  .ba {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .growth {
+    padding: 28px 24px;
+    border-radius: 32px;
+  }
+
+  .c-scope {
+  margin: 28px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(27, 27, 27, 0.15);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.c-hero .note {
+  margin-top: 10px;
+}
+
+.c-section {
+    padding: 64px 0;
+  }
+
+  .summer,
+  .c-case {
+    padding: 24px 20px;
+  }
+}

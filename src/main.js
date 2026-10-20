@@ -11,7 +11,7 @@ document.querySelector('#app').innerHTML = `
       <ul>
         <li><a href="/visuals/">VISUALS</a></li>
         <li><a href="/music/">MUSIC</a></li>
-        <li><a href="#">SOCIAL</a></li>
+        <li><a href="/social/meily/">SOCIAL</a></li>
       </ul>
     </section>
 

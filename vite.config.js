@@ -11,6 +11,8 @@ export default defineConfig({
         qa: resolve(import.meta.dirname, 'qa/index.html'),
         visuals: resolve(import.meta.dirname, 'visuals/index.html'),
         music: resolve(import.meta.dirname, 'music/index.html'),
+        socialMeily: resolve(import.meta.dirname, 'social/meily/index.html'),
+        socialCathy: resolve(import.meta.dirname, 'social/cathy/index.html'),
       },
     },
   },
