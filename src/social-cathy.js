@@ -2,11 +2,12 @@ import { flow, heading, kicker, metric, note, placeholder, renderSocialPage, sho
 
 const img = (name) => `/social/cathy/${name}.jpg`
 
-// Une ligne de l'avant / après : le sujet, puis les deux versions côte à côte
-const compare = (topic, before, after) => `
+// Une ligne de l'avant / après : le sujet, puis les deux versions côte à côte.
+// `kind` (profile, feed, cover) permet au CSS de donner la même taille aux deux côtés.
+const compare = (topic, kind, before, after) => `
   <p class="ba__topic">${topic}</p>
-  <div class="ba__cell">${before}</div>
-  <div class="ba__cell ba__cell--after">${after}</div>
+  <div class="ba__cell ba__cell--${kind}">${before}</div>
+  <div class="ba__cell ba__cell--${kind} ba__cell--after">${after}</div>
 `
 
 const hero = `
@@ -47,24 +48,30 @@ const context = `
       <span class="ba__label ba__label--after">AFTER</span>
       ${compare(
         'Instagram profile',
+        'profile',
         shot({ src: img('profile-before'), alt: 'Instagram profile before', caption: '363 followers' }),
         shot({ src: img('profile-after'), alt: 'Instagram profile after', caption: '409 followers' }),
       )}
       ${compare(
         'Feed',
+        'feed',
         shot({ src: img('feed-before'), alt: 'Instagram feed before' }),
         shot({ src: img('feed-after'), alt: 'Instagram feed after' }),
       )}
+    </div>
+
+    <div class="ba ba--cover">
       ${compare(
         'Cover',
+        'cover',
         shot({ src: img('cover-before'), alt: 'Former Facebook cover' }),
         `<div class="ba__cover">
           ${shot({ src: img('cover-after'), alt: 'New Facebook cover reusing the logo and palette' })}
           ${shot({ src: img('story-after'), alt: 'Cover adapted to 9:16 for an Instagram highlight' })}
+          ${note('Same logo and palette, used more consistently — the cover is also adapted to 9:16 for Instagram highlights.')}
         </div>`,
       )}
     </div>
-    ${note('Same logo and palette, used more consistently — the cover is also adapted to 9:16 for Instagram highlights.')}
   </section>
 `
 
@@ -91,30 +98,32 @@ const strategy = `
 const production = `
   <section class="c-section" id="production">
     ${heading('CONTENT PRODUCTION', '03')}
-    <div class="process">
-      ${kicker('Video')}
-      ${flow([
-        'Class filming / raw content',
-        'Sequence selection',
-        'Editing + original music when relevant',
-        'Caption, hashtags &amp; publishing strategy',
-        'Cathy validation',
-        'Schedule / publish',
-        'Analyse',
-      ])}
-      ${note('One filming session feeds several videos. CapCut · DaVinci Resolve · Suno')}
-    </div>
-    <div class="process">
-      ${kicker('Carousels / stories')}
-      ${flow([
-        'Topic / purpose',
-        'Content + visual creation',
-        'Publishing strategy',
-        'Cathy validation',
-        'Schedule / publish',
-        'Analyse',
-      ])}
-      ${note('Photoshop · ChatGPT')}
+    <div class="processes">
+      <div class="process">
+        ${kicker('Video')}
+        ${flow([
+          'Class filming / raw content',
+          'Sequence selection',
+          'Editing + original music when relevant',
+          'Caption, hashtags &amp; publishing strategy',
+          'Cathy validation',
+          'Schedule / publish',
+          'Analyse',
+        ])}
+        ${note('One filming session feeds several videos. CapCut · DaVinci Resolve · Suno')}
+      </div>
+      <div class="process">
+        ${kicker('Carousels / stories')}
+        ${flow([
+          'Topic / purpose',
+          'Content + visual creation',
+          'Publishing strategy',
+          'Cathy validation',
+          'Schedule / publish',
+          'Analyse',
+        ])}
+        ${note('Photoshop · ChatGPT')}
+      </div>
     </div>
     ${note('Publishing strategy = caption, hashtags, timing and planning. Scheduling and analytics: Meta Business Suite.')}
   </section>
@@ -144,12 +153,25 @@ const campaign = `
       </div>
       <div class="c-case">
         ${kicker('Case — Courcoury')}
-        ${flow([
-          'Posts seen online by the town hall',
-          'Town hall contacts me',
-          'Digital visuals adapted into print-ready flyers / leaflets',
-          'Files sent to the town hall',
-        ])}
+        <div class="story">
+          <div class="story__step">
+            <h4>SEEN ONLINE</h4>
+            ${text('The town hall discovers the campaign visuals published online.')}
+          </div>
+          <div class="story__step story__step--print">
+            <div class="story__flyers">
+              <img src="${img('flyer-planning')}" alt="Courcoury summer planning flyer" loading="lazy" />
+              <img src="${img('flyer-july')}" alt="July discovery flyer" loading="lazy" />
+              <img src="${img('flyer-prices')}" alt="Summer prices flyer" loading="lazy" />
+            </div>
+            <h4>ADAPTED FOR PRINT</h4>
+            ${text('After they contacted me, I adapted the digital visuals into print-ready flyers and leaflets.')}
+          </div>
+          <div class="story__step">
+            <h4>DELIVERED</h4>
+            ${text('I prepared and sent the final files to the town hall.')}
+          </div>
+        </div>
         ${note('Printing and distribution were handled by the town hall.')}
       </div>
     </div>

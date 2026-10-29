@@ -1,5 +1,5 @@
 import { siInstagram, siPinterest, siSpotify, siTiktok, siYoutube } from 'simple-icons'
-import { flow, heading, kicker, metric, note, platformLink, renderSocialPage, tags, text } from './social.js'
+import { heading, kicker, metric, note, platformLink, renderSocialPage, tags, text } from './social.js'
 
 const platforms = {
   instagram: { name: 'Instagram', href: 'https://www.instagram.com/bymei.ly/', icon: siInstagram },
@@ -73,18 +73,32 @@ const workflow = `
   </section>
 `
 
+// Les grandes étapes d'une sortie (--i : position de l'étape, utilisée pour le dégradé violet)
+const stages = [
+  { title: 'CREATE', body: 'Concept, lyrics, sound direction, generation' },
+  { title: 'REFINE', body: 'Selection, iteration, editing, audio adjustments' },
+  { title: 'DISTRIBUTE &amp; PITCH', body: 'DistroKid, Spotify for Artists, release preparation' },
+  { title: 'VIDEO + SPOTIFY CANVAS', body: 'Short-form video, Spotify Canvas' },
+  { title: 'RELEASE + SOCIAL PUBLISHING', body: 'Release, short-form video publishing' },
+  { title: 'CURATORS + RADIO', body: 'Curators, playlists, radio and discovery platforms' },
+  { title: 'ANALYSE &amp; ADJUST', body: 'Results, feedback and adjustments for future releases' },
+]
+
 const release = `
   <section class="m-release" id="release">
     ${heading('RELEASE &amp; PROMOTION')}
-    ${flow([
-      'Create',
-      'Refine',
-      'Distribute &amp; pitch',
-      'Video + Spotify Canvas',
-      'Release + social publishing',
-      'Curators + radio',
-      'Analyse &amp; adjust',
-    ])}
+    <ol class="stages">
+      ${stages
+        .map(
+          (stage, i) => `
+        <li class="stage" style="--i: ${i}">
+          <span class="stage__number">0${i + 1}</span>
+          <h4>${stage.title}</h4>
+          <p>${stage.body}</p>
+        </li>`,
+        )
+        .join('')}
+    </ol>
     ${text('I pick curators for musical fit, audience, credibility, cost and past results — then adjust future submissions based on their feedback.')}
     ${note('DistroKid · Spotify for Artists · curator platforms · radio / discovery platforms')}
   </section>

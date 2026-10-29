@@ -58,9 +58,16 @@ export const tags = (items) => `
   <ul class="tags">${items.map((item) => `<li>${item}</li>`).join('')}</ul>
 `
 
-// Étapes d'un processus, reliées par des flèches
+// Étapes d'un processus : liste verticale numérotée
 export const flow = (steps) => `
-  <ol class="flow">${steps.map((step) => `<li>${step}</li>`).join('')}</ol>
+  <ol class="flow">
+    ${steps
+      .map(
+        (step, i) => `
+      <li><span class="flow__number">${String(i + 1).padStart(2, '0')}</span>${step}</li>`,
+      )
+      .join('')}
+  </ol>
 `
 
 // Petite note grise (sources, précisions, données à venir)

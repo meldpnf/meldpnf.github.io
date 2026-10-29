@@ -198,30 +198,32 @@
   color: var(--warm-grey);
 }
 
-/* Étapes en ligne, reliées par des flèches (passent à la ligne si besoin) */
+/* Étapes d'un processus : liste verticale, un numéro dans une pastille + le texte */
 .flow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 32px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .flow li {
-  position: relative;
-  padding: 10px 16px;
-  font-size: 0.85rem;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
-/* Flèche après chaque étape (sauf la dernière) : si la ligne se coupe,
-   elle reste en fin de ligne au lieu de flotter au début de la suivante */
-.flow li:not(:last-child)::after {
-  content: '→';
-  position: absolute;
-  right: -22px;
-  color: var(--warm-grey);
+.flow__number {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .shot {
@@ -441,18 +443,66 @@
   margin-top: 24px;
 }
 
-/* Release : étapes en pastilles arrondies */
-.m-release .flow li {
-  border-radius: 999px;
-  background: rgba(236, 232, 224, 0.55);
+/* Release : liste verticale. Une barre à gauche passe du violet clair au violet
+   Meily, et chaque numéro fonce un peu plus que le précédent (--i, donné dans social-meily.js) */
+.stages {
+  position: relative;
+  max-width: 960px;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 36px;
 }
 
-.m-release .flow li:not(:last-child)::after {
-  color: var(--m-accent);
+.stages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, rgba(122, 100, 145, 0.25), var(--m-accent));
+}
+
+.stage {
+  --tone: color-mix(in srgb, var(--m-accent) calc(40% + var(--i) * 10%), #c4b6d3);
+
+  display: grid;
+  grid-template-columns: 72px minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: baseline;
+  gap: 8px 32px;
+  padding: 28px 8px;
+  /* trait fin sous chaque étape, dans le violet de l'étape, qui s'efface vers la droite */
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg, var(--tone), transparent 85%) 1;
+}
+
+.stage__number {
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1;
+  color: var(--tone);
+}
+
+.stage h4 {
+  margin: 0;
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  letter-spacing: 0.18em;
+}
+
+.stage p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--warm-grey);
 }
 
 .m-release .text {
-  margin-top: 32px;
+  margin-top: 48px;
 }
 
 /* Social presence : deux cartes compactes, une par rôle */
@@ -493,8 +543,13 @@
 }
 
 .growth .metric__value {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
   color: var(--m-accent);
+}
+
+.growth .metric__label {
+  font-size: 0.75rem;
+  color: var(--charcoal);
 }
 
 .growth__list {
@@ -504,9 +559,10 @@
 }
 
 .growth__list li {
-  padding: 10px 0 10px 24px;
+  padding: 12px 0 12px 28px;
   position: relative;
-  font-weight: 300;
+  border-bottom: 1px solid rgba(122, 100, 145, 0.2);
+  font-size: 1.02rem;
 }
 
 .growth__list li::before {
@@ -645,11 +701,46 @@
   border-radius: 8px;
 }
 
-/* Nouvelle couverture + sa version 9:16, à la même hauteur */
+/* Profil : les deux captures dans un cadre de même format,
+   complété par le fond sombre d'Instagram si la capture est plus courte */
+.ba__cell--profile img {
+  aspect-ratio: 700 / 712;
+  object-fit: contain;
+  background: #0c0f14;
+}
+
+/* Couverture : ligne à part, où AFTER est plus large que BEFORE
+   (la suite du même cadre blanc que les lignes au-dessus) */
+.ba--cover {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: start;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* AFTER : la nouvelle couverture en grand, puis sa version 9:16 et la note en dessous */
 .ba__cover {
   display: grid;
-  grid-template-columns: 2.4fr 0.5625fr;
-  gap: 8px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px 20px;
+  align-items: end;
+}
+
+.ba__cover .shot:first-child {
+  grid-column: 1 / -1;
+}
+
+.ba__cover .shot:nth-child(2) img {
+  width: auto;
+  height: 220px;
+}
+
+.ba__cover .note {
+  margin: 0;
+  max-width: 320px;
+  padding-left: 14px;
+  border-left: 3px solid var(--c-yellow);
+  line-height: 1.6;
 }
 
 /* Piliers : trois colonnes, barre de couleur en haut */
@@ -692,17 +783,108 @@
 
 /* Production : une ligne par processus */
 .process {
-  padding: 24px 0;
+  padding: 32px 0 40px;
   border-top: 1px solid rgba(27, 27, 27, 0.12);
 }
 
-.process .note {
-  margin-top: 12px;
+.process .kicker {
+  margin-bottom: 28px;
 }
 
+.process .note {
+  margin-top: 24px;
+}
+
+/* Production : les deux processus côte à côte */
+.processes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 56px;
+}
+
+/* Étapes aux couleurs de Cathy : pastille jaune, numéro noir, traits fins */
 .social--cathy .flow li {
-  background: var(--c-white);
-  border: 1px solid rgba(27, 27, 27, 0.15);
+  border-bottom-color: rgba(27, 27, 27, 0.12);
+}
+
+.social--cathy .flow__number {
+  background: var(--c-yellow);
+  color: var(--c-black);
+}
+
+/* Courcoury : une petite histoire en 3 temps. Le temps du milieu porte les flyers
+   en éventail, sur un fond jaune très léger ; les deux autres restent en texte seul */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.story__step h4 {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--c-black);
+}
+
+.story__step .text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Petit soulignement rouge sous les titres des temps 1 et 3 */
+.story__step:not(.story__step--print) h4::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--c-red);
+}
+
+.story__step--print {
+  padding: 24px;
+  text-align: center;
+  background: rgba(247, 198, 60, 0.22);
+  border-radius: 12px;
+}
+
+.story__step--print .text {
+  margin: 0 auto;
+}
+
+.story__flyers {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.story__flyers img {
+  width: 38%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 3px solid var(--c-white);
+  box-shadow: 0 4px 14px rgba(27, 27, 27, 0.15);
+}
+
+/* Éventail : les flyers des côtés passent derrière celui du centre, légèrement tournés */
+.story__flyers img:first-child {
+  transform: rotate(-12deg) translateX(18%);
+}
+
+.story__flyers img:nth-child(2) {
+  position: relative;
+  z-index: 1;
+}
+
+.story__flyers img:last-child {
+  transform: rotate(8deg) translateX(-18%);
+}
+
+.c-case > .note {
+  margin-top: 20px;
 }
 
 /* Summer Discovery : bloc phare, avec une grande place pour la capture Notion */
@@ -833,6 +1015,28 @@
   .ba {
     gap: 12px;
     padding: 16px;
+  }
+
+  .processes,
+  .story {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stages {
+    padding-left: 20px;
+  }
+
+  .stage {
+    grid-template-columns: 52px minmax(0, 1fr);
+    padding: 20px 12px;
+  }
+
+  .stage p {
+    grid-column: 2;
+  }
+
+  .ba__cover .shot:nth-child(2) img {
+    height: 160px;
   }
 
   .growth {
