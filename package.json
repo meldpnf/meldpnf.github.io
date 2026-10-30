@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "music": "node scripts/fetch-music.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

@@ -161,6 +161,22 @@ a.platform:hover {
   aspect-ratio: 1 / 1;
 }
 
+/* Vraie pochette (Spotify) : même format carré que l'emplacement vide */
+img.track__cover {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.track__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.track__title a:hover {
+  text-decoration: underline;
+}
+
 .track__title {
   margin: 0;
   font-family: var(--font-creative);
@@ -180,7 +196,52 @@ a.platform:hover {
 
 /* Clip : format vertical (Reels, TikTok, Shorts) */
 .track__video {
+  position: relative;
   aspect-ratio: 9 / 16;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--charcoal);
+  cursor: pointer;
+}
+
+/* Miniature YouTube (format 4/3 avec bandes noires) recadrée en vertical */
+.track__video img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.track__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: rgba(236, 232, 224, 0.85);
+  color: var(--charcoal);
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+}
+
+.track__video:hover img {
+  transform: scale(1.04);
+}
+
+.track__video:hover .track__play {
+  background: var(--off-white);
+}
+
+.track__video:focus-visible {
+  outline: 2px solid var(--charcoal);
+  outline-offset: 4px;
 }
 
 .track__no-video {
@@ -216,5 +277,53 @@ a.platform:hover {
   .track__no-video {
     grid-column: 1 / -1;
     justify-self: start;
+  }
+}
+
+/* Fenêtre de lecture : Short en grand, centré, sur fond assombri */
+.player {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.player::backdrop {
+  background: rgba(30, 28, 26, 0.85);
+}
+
+.player__frame {
+  display: block;
+  height: 88vh;
+  aspect-ratio: 9 / 16;
+  max-width: 92vw;
+  border: 0;
+  border-radius: 10px;
+}
+
+.player__close {
+  position: absolute;
+  top: 0;
+  right: -56px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(236, 232, 224, 0.5);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--off-white);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.player__close:hover {
+  background: rgba(236, 232, 224, 0.15);
+}
+
+/* Mobile : pas de place à droite, la croix passe au-dessus de la vidéo */
+@media (max-width: 700px) {
+  .player__close {
+    top: -52px;
+    right: 0;
   }
 }

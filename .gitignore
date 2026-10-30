@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 test-results/
+
+# Identifiants (Spotify, etc.) : ne jamais les envoyer sur Git
+.env

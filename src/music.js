@@ -1,6 +1,9 @@
 import './style.css'
 import './music.css'
 import { siApplemusic, siDeezer, siSpotify, siYoutubemusic } from 'simple-icons'
+// Discographie générée par `npm run music` (voir scripts/fetch-music.js)
+// Chaque sortie : trackKey, title, type, cover, releaseDate, url, video (id du Short YouTube ou null)
+import discography from './data/discography.json'
 
 // Pages artiste générales : à remplir avec les vraies adresses.
 // Tant qu'une adresse est vide, le lien s'affiche grisé et n'est pas cliquable.
@@ -13,17 +16,8 @@ const platforms = [
   { name: 'All platforms', url: '', icon: null },
 ]
 
-// Morceaux locaux provisoires. Plus tard, cette liste viendra de Spotify,
-// et le clip sera rattaché au bon morceau grâce à `trackKey`
-// (hashtag #meily_track_<trackKey> dans la description du clip).
-// - cover : image du morceau (null = placeholder)
-// - releaseDate : null tant qu'elle n'est pas renseignée
-// - video : un seul clip par morceau, null = pas de clip
-const tracks = [
-  { trackKey: 'onethought', title: 'One Thought', cover: null, releaseDate: null, video: 'placeholder' },
-  { trackKey: 'worldofshadows', title: 'World of Shadows', cover: null, releaseDate: null, video: 'placeholder' },
-  { trackKey: 'rareststar', title: 'Rarest Star', cover: null, releaseDate: null, video: null },
-]
+
+const tracks = discography
 
 // Petit logo dessiné en SVG, dans la couleur officielle de la marque
 const logo = (icon) =>
@@ -38,18 +32,32 @@ const platformLink = (platform) => {
     : `<span class="platform platform--disabled">${content}</span>`
 }
 
-// Zone du clip : emplacement vidéo, ou mention discrète s'il n'y en a pas
+// Zone du clip : miniature du Short (le lecteur s'ouvre en grand au clic),
+// ou mention discrète s'il n'y en a pas
 const videoSlot = (track) =>
   track.video
-    ? `<div class="track__video placeholder"><span>Video placeholder</span></div>`
+    ? `<button class="track__video" type="button" data-video="${track.video}" aria-label="Play the video of ${track.title}">
+        <img src="https://i.ytimg.com/vi/${track.video}/hqdefault.jpg" alt="" loading="lazy" />
+        <span class="track__play" aria-hidden="true">▶</span>
+      </button>`
     : `<div class="track__no-video">No video</div>`
+
+// Pochette Spotify, ou emplacement vide si elle n'est pas encore connue
+const coverSlot = (track) =>
+  track.cover
+    ? `<img class="track__cover" src="${track.cover}" alt="Cover of ${track.title}" loading="lazy" />`
+    : `<div class="track__cover placeholder"><span>Cover</span></div>`
+
+// Le titre mène vers le morceau sur Spotify quand le lien est connu
+const titleLink = (track) =>
+  track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${track.title}</a>` : track.title
 
 // Une musique = une ligne : cover, titre (+ date), clip
 const trackRow = (track) => `
   <li class="track" data-track="${track.trackKey}">
-    <div class="track__cover placeholder"><span>Cover</span></div>
+    ${coverSlot(track)}
     <div class="track__info">
-      <h3 class="track__title">${track.title}</h3>
+      <h3 class="track__title">${titleLink(track)}</h3>
       ${track.releaseDate ? `<span class="track__date">${track.releaseDate}</span>` : ''}
     </div>
     ${videoSlot(track)}
@@ -75,4 +83,32 @@ document.querySelector('#app').innerHTML = `
       </ul>
     </section>
   </main>
+
+  <dialog class="player" aria-label="Video player">
+    <button class="player__close" type="button" aria-label="Close the video">×</button>
+    <iframe class="player__frame" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  </dialog>
 `
+
+// Fenêtre de lecture : <dialog> gère déjà la touche Échap et le fond assombri
+const player = document.querySelector('.player')
+const frame = player.querySelector('.player__frame')
+
+document.querySelectorAll('[data-video]').forEach((button) => {
+  button.addEventListener('click', () => {
+    frame.src = `https://www.youtube-nocookie.com/embed/${button.dataset.video}?autoplay=1`
+    player.showModal()
+  })
+})
+
+player.querySelector('.player__close').addEventListener('click', () => player.close())
+
+// Clic à côté de la vidéo (sur le fond) = fermer
+player.addEventListener('click', (event) => {
+  if (event.target === player) player.close()
+})
+
+// À la fermeture (×, Échap ou clic à côté), on vide le lecteur pour couper le son
+player.addEventListener('close', () => {
+  frame.src = ''
+})
