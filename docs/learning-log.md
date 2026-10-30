@@ -105,3 +105,38 @@ Not applicable
 
 **Related Git commit**
 cb1dcff — Build visuals and music pages
+
+## 2026-10-30 — [DEV] — MUSIC page connected to Spotify and YouTube Shorts
+
+**Task**
+Replace the hand-written track list of the MUSIC page with real data: Spotify discography (covers, dates, links) and YouTube Shorts attached to each track, viewable in a large video player.
+
+**My role**
+- Created the Spotify and YouTube API credentials and stored them myself in the local `.env` file
+- Required that the Spotify Client Secret never reaches the frontend
+- Added the `#meily_track_…` hashtags to the descriptions of my YouTube Shorts
+- Chose the automatic matching approach (hashtags) over manual video links
+- Asked for a way to watch the Shorts in full screen and approved the video player solution
+- Tested the result on desktop
+
+**AI-assisted work**
+- Claude Code proposed the architecture (build-time Node script, no server) and wrote the script that fetches Spotify and YouTube data into `src/data/discography.json`
+- Claude Code updated the MUSIC page to read this file, display covers and Spotify links, and open Shorts in a `<dialog>` video player
+- Claude Code set up `.env` / `.env.example` / `.gitignore` and checked the build, the absence of credentials in `dist/`, and the player behaviour with Playwright
+
+**Tools / concepts**
+Spotify Web API (Client Credentials), YouTube Data API v3, API keys and secrets, `.env` file, `.gitignore`, Node script run with `npm run music`, JSON data file, `fetch`, regular expression to read a hashtag, `<dialog>` element, YouTube embed
+
+**Result**
+The MUSIC page shows 17 real releases from Spotify, 11 of them with a YouTube Short that opens in a large player with full-screen option. New releases are added by running `npm run music`.
+
+**What I learned**
+- Spotify Canvas videos are not available through the public Spotify API
+- Secret keys stay in `.env`, which is excluded from Git and only read by a script on my computer
+- Not documented (to complete)
+
+**Related QA exercise**
+Not applicable
+
+**Related Git commit**
+ac9811a — Connect MUSIC page to Spotify and YouTube Shorts
