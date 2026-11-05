@@ -1,38 +1,30 @@
 import './style.css'
 import './visuals.css'
-
-// Posts locaux provisoires, sous la même forme que les futurs posts Instagram.
-// Plus tard, cette liste sera remplacée par la réponse de l'API : rien d'autre ne change.
-// - la 1re ligne de la caption = titre court affiché (« Art Experiment 01 »)
-// - le hashtag de la caption = galerie où le post est rangé (jamais le numéro)
-// - `ratio` sert seulement aux placeholders, en attendant les vraies images (`cover`)
-const posts = [
-  { id: 'p1', caption: 'Art Experiment 01\nPlaceholder caption #meily_main', ratio: '4 / 5' },
-  { id: 'p2', caption: 'Art Experiment 02\nPlaceholder caption #meily_astrology', ratio: '1 / 1' },
-  { id: 'p3', caption: 'Art Experiment 03\nPlaceholder caption #meily_main', ratio: '3 / 4' },
-  { id: 'p4', caption: 'Art Experiment 04\nPlaceholder caption #meily_main', ratio: '4 / 3' },
-  { id: 'p5', caption: 'Art Experiment 05\nPlaceholder caption #meily_astrology', ratio: '2 / 3' },
-  { id: 'p6', caption: 'Art Experiment 06\nPlaceholder caption #meily_astrology', ratio: '1 / 1' },
-  { id: 'p7', caption: 'Collab 01\nPlaceholder caption #meily_collab', ratio: '3 / 4' },
-  { id: 'p8', caption: 'Collab 02\nPlaceholder caption #meily_collab', ratio: '1 / 1' },
-]
+import posts from './data/instagram.json'
 
 // Titre court : la première ligne de la caption
-const getTitle = (post) => post.caption.split('\n')[0]
+const getTitle = (post) => post.caption.split('\n')[0].trim()
+
+// Le texte vient d'Instagram : on évite qu'il soit lu comme du HTML
+const escapeHtml = (text) =>
+  text.replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char])
 
 // Garde seulement les posts qui contiennent ce hashtag
-const withHashtag = (hashtag) => posts.filter((post) => post.caption.includes(hashtag))
+const withHashtag = (hashtag) => posts.filter((post) => post.caption.toLowerCase().includes(hashtag))
 
 // Une carte = la couverture + le titre court. `data-id` servira plus tard
 // à ouvrir la vue détaillée (carrousel + caption complète) du bon post.
-const card = (post) => `
-  <figure class="card" data-id="${post.id}">
-    <div class="card__cover card__cover--placeholder" style="aspect-ratio: ${post.ratio}">
-      <span>Image placeholder</span>
-    </div>
-    <figcaption class="card__title">${getTitle(post)}</figcaption>
-  </figure>
-`
+const card = (post) => {
+  const title = escapeHtml(getTitle(post))
+  return `
+    <figure class="card" data-id="${post.id}">
+      <div class="card__cover">
+        <img src="${post.images[0].src}" alt="${title}" loading="lazy" />
+      </div>
+      <figcaption class="card__title">${title}</figcaption>
+    </figure>
+  `
+}
 
 const gallery = (hashtag) => `<div class="gallery">${withHashtag(hashtag).map(card).join('')}</div>`
 

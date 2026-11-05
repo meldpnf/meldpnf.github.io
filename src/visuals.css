@@ -112,29 +112,14 @@
 }
 
 .card__cover {
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
-/* Placeholder provisoire : bloc sable plus clair, cadre en pointillés */
-.card__cover--placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(236, 232, 224, 0.4);
-  border: 1px dashed rgba(95, 87, 78, 0.3);
-  transition: background-color 0.4s;
-}
-
-.card:hover .card__cover--placeholder {
-  background: rgba(236, 232, 224, 0.6);
-}
-
-.card__cover--placeholder span {
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(95, 87, 78, 0.6);
+.card__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .card__title {
