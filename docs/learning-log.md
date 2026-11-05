@@ -140,3 +140,40 @@ Not applicable
 
 **Related Git commit**
 ac9811a — Connect MUSIC page to Spotify and YouTube Shorts
+
+## 2026-11-05 — [DEV] — VISUALS gallery connected to Instagram
+
+**Task**
+Replace the placeholders of the VISUALS page with real Instagram posts, then find a gallery layout that suits the page.
+
+**My role**
+- Generated the Instagram token and stored it in the local `.env` file
+- Added the `#meily_main`, `#meily_astrology` and `#meily_collab` hashtags to my posts
+- Compared the result with my account and noticed that 44 posts were received out of 56, and that carousels only showed their first image
+- Reviewed several AI-assisted layouts over two days, rejected them and decided to return to the first simple gallery
+- Changed the number of columns myself to test 4, then kept 3
+- Adjusted the `border-radius` of the images myself (4px)
+- Approved the final render
+
+**AI-assisted work**
+- Claude Code wrote the script that fetches the posts, downloads their images into `public/instagram/` and creates `src/data/instagram.json`
+- Claude Code connected the VISUALS page to this file and wrote the layouts that were tested
+- Claude Code found the first gallery in past session history, restored it and checked it at three screen sizes with Playwright
+- Claude Code checked that the token was not in the commit
+
+**Tools / concepts**
+Instagram API, access token, `.env` file, Node script run with `npm run instagram`, JSON data file, CSS `columns` (masonry layout), `border-radius`, Playwright, selective `git add`
+
+**Result**
+The VISUALS page shows 27 real posts: 11 MAIN, 8 ASTROLOGY and 8 COLLABS, in 3 columns. Each post shows its first image. The 27 cover images (13 MB) are committed; the 129 other carousel images (68 MB) stay local and are not displayed.
+
+**What I learned**
+- Clarified my understanding of what an API is and how it is integrated into a project
+- Connected my QA tester training (integration testing, covered in my course) with practice, through this real integration
+- This led me to plan an integration testing experiment on the Meily Lab project
+
+**Related QA exercise**
+Not applicable
+
+**Related Git commit**
+6efb306 — Connect VISUALS gallery to Instagram posts
