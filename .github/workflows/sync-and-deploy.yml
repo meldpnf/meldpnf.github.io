@@ -1,0 +1,66 @@
+# Récupère les contenus Instagram, Spotify et YouTube, construit le site et le publie sur GitHub Pages.
+# Les clés API viennent des GitHub Secrets : elles ne sont jamais écrites dans le dépôt ni dans le site.
+name: Sync and deploy
+
+on:
+  # Bouton « Run workflow » dans l'onglet Actions de GitHub
+  workflow_dispatch:
+  # Tous les jours à 5 h (heure UTC)
+  schedule:
+    - cron: '0 5 * * *'
+  # À chaque envoi de code sur main, pour publier aussi les changements du site
+  push:
+    branches: [main]
+
+# Droits minimum : lire le code et publier sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Une seule publication à la fois
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Si une API échoue, le workflow s'arrête ici : le site en ligne reste dans sa version précédente
+      - name: Sync Instagram, Spotify and YouTube
+        run: npm run sync
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_ARTIST_ID: ${{ secrets.SPOTIFY_ARTIST_ID }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
