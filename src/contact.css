@@ -1,0 +1,203 @@
+/* Page CONTACT : neutre, entre les deux univers.
+   Fond qui passe doucement du sable (Creative) au gris clair (Tech) */
+:root {
+  min-height: 100%;
+  background: linear-gradient(100deg, #ddd3c4, var(--cool-grey));
+  color: var(--charcoal);
+}
+
+.contact {
+  --line: rgba(52, 50, 47, 0.3);
+
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+  font-weight: 300;
+}
+
+/* Retour à la homepage : même bouton que sur les autres pages */
+.back {
+  display: inline-block;
+  padding: 12px 22px 12px calc(22px + 0.25em);
+  border: 1px solid var(--line);
+  border-radius: 14px 0 0 14px; /* coins arrondis à gauche (Creative), droits à droite (Tech) */
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--warm-grey);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.back:hover {
+  background-color: rgba(236, 232, 224, 0.5);
+}
+
+/* Titre : « CONT » dans la police Creative, « ACT » dans la police Tech, comme MÉL / INA */
+.contact__title {
+  margin: 120px 0 72px;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: 250;
+  line-height: 1;
+  letter-spacing: 0.3em;
+}
+
+.contact__creative {
+  font-family: var(--font-creative);
+  font-weight: var(--font-creative-weight);
+  font-size: 0.93em;
+  letter-spacing: 0.24em;
+}
+
+/* ─── Formulaire ─── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field > label,
+.field legend {
+  padding: 0;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+}
+
+.field legend {
+  margin-bottom: 14px;
+}
+
+/* Champs : une simple ligne en dessous, qui fonce au clic */
+.field input,
+.field textarea {
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--charcoal);
+  transition: border-color 0.3s;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--charcoal);
+}
+
+/* Types de demande : petites options cliquables (de vrais boutons radio, cachés visuellement) */
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.choice {
+  position: relative;
+}
+
+.choice input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.choice span {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--warm-grey);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.choice input:hover + span {
+  background-color: rgba(236, 232, 224, 0.5);
+}
+
+.choice input:checked + span {
+  color: var(--off-white);
+  background-color: var(--charcoal);
+  border-color: var(--charcoal);
+}
+
+/* Contour visible quand on navigue au clavier */
+.choice input:focus-visible + span {
+  outline: 2px solid var(--charcoal);
+  outline-offset: 2px;
+}
+
+.form__send {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 14px 40px 14px calc(40px + 0.3em);
+  border: 1px solid var(--charcoal);
+  border-radius: 14px 0 0 14px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.form__send:hover {
+  color: var(--off-white);
+  background-color: var(--charcoal);
+}
+
+.form__send:focus-visible {
+  outline: 2px solid var(--charcoal);
+  outline-offset: 3px;
+}
+
+.form__status {
+  min-height: 1.5em;
+  margin: -16px 0 0;
+  font-size: 0.85rem;
+  color: var(--warm-grey);
+}
+
+/* Lien direct : très discret */
+.direct {
+  margin: 72px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.direct a {
+  color: var(--warm-grey);
+  text-decoration: none;
+}
+
+.direct a:hover {
+  color: var(--charcoal);
+  text-decoration: underline;
+}

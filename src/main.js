@@ -24,5 +24,7 @@ document.querySelector('#app').innerHTML = `
         <li><a href="/qa/">QA</a></li>
       </ul>
     </section>
+
+    <a class="contact-link" href="/contact/">CONTACT</a>
   </main>
 `

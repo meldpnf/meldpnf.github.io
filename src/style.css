@@ -224,6 +224,29 @@ body {
   background: var(--slate);
 }
 
+/* Lien CONTACT : en bas, centré sur la ligne entre les deux moitiés.
+   Coins arrondis à gauche (Creative), droits à droite (Tech) : il appartient aux deux côtés */
+.contact-link {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 10px 26px 10px calc(26px + 0.3em);
+  border: 1px solid rgba(52, 50, 47, 0.35);
+  border-radius: 14px 0 0 14px;
+  background: rgba(236, 232, 224, 0.75);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--charcoal);
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.contact-link:hover {
+  background: var(--off-white);
+}
+
 /* Mobile : les deux moitiés s'empilent */
 @media (max-width: 720px) {
   .home {
