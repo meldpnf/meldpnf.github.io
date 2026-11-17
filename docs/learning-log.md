@@ -39,7 +39,7 @@ Validated homepage with Unbounded / Inter split title and subtle textures on bot
 Not applicable
 
 **Related Git commit**
-3c17d88 — Refine homepage and add DEV page and learning docs
+aa29124 — Refine homepage and add DEV page and learning docs
 
 ## 2026-10-10 — [TOOLING] — Work environment and AI-assisted workflow setup
 
@@ -71,7 +71,7 @@ Working Vite project, personal and project-level CLAUDE.md files, learning log a
 Not applicable
 
 **Related Git commit**
-3c17d88 — Refine homepage and add DEV page and learning docs
+aa29124 — Refine homepage and add DEV page and learning docs
 
 ## 2026-10-14 — [DEV] — QA, VISUALS and MUSIC pages (first versions)
 
@@ -104,7 +104,7 @@ Three new pages linked from the homepage, ready to be fed by real data later wit
 Not applicable
 
 **Related Git commit**
-cb1dcff — Build visuals and music pages
+f107769 — Build visuals and music pages
 
 ## 2026-10-30 — [DEV] — MUSIC page connected to Spotify and YouTube Shorts
 
@@ -139,7 +139,7 @@ The MUSIC page shows 17 real releases from Spotify, 11 of them with a YouTube Sh
 Not applicable
 
 **Related Git commit**
-ac9811a — Connect MUSIC page to Spotify and YouTube Shorts
+c345743 — Connect MUSIC page to Spotify and YouTube Shorts
 
 ## 2026-11-05 — [DEV] — VISUALS gallery connected to Instagram
 
@@ -176,4 +176,4 @@ The VISUALS page shows 27 real posts: 11 MAIN, 8 ASTROLOGY and 8 COLLABS, in 3 c
 Not applicable
 
 **Related Git commit**
-6efb306 — Connect VISUALS gallery to Instagram posts
+b261202 — Connect VISUALS gallery to Instagram posts
