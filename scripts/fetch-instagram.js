@@ -4,17 +4,18 @@
 // Lancer avec : npm run instagram
 import { mkdir, writeFile } from 'node:fs/promises'
 
+// Sur ton ordinateur, les clés sont dans .env.
+// Sur GitHub Actions, il n'y a pas de .env : les clés arrivent déjà par les GitHub Secrets.
 try {
   process.loadEnvFile('.env')
 } catch {
-  console.error('Fichier .env introuvable (voir .env.example).')
-  process.exit(1)
+  // Pas de .env : on continue, la vérification ci-dessous signale une clé manquante
 }
 
 const { INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID } = process.env
 
 if (!INSTAGRAM_ACCESS_TOKEN || !INSTAGRAM_USER_ID) {
-  console.error('Il manque une valeur dans .env (voir .env.example).')
+  console.error('Il manque une valeur dans .env ou dans les GitHub Secrets (voir .env.example).')
   process.exit(1)
 }
 

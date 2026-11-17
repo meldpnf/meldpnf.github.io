@@ -3,17 +3,18 @@
 // Lancer avec : npm run music
 import { writeFile } from 'node:fs/promises'
 
+// Sur ton ordinateur, les clés sont dans .env.
+// Sur GitHub Actions, il n'y a pas de .env : les clés arrivent déjà par les GitHub Secrets.
 try {
   process.loadEnvFile('.env')
 } catch {
-  console.error('Fichier .env introuvable (voir .env.example).')
-  process.exit(1)
+  // Pas de .env : on continue, la vérification ci-dessous signale une clé manquante
 }
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_ARTIST_ID, YOUTUBE_API_KEY } = process.env
 
 if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_ARTIST_ID || !YOUTUBE_API_KEY) {
-  console.error('Il manque une valeur dans .env (voir .env.example).')
+  console.error('Il manque une valeur dans .env ou dans les GitHub Secrets (voir .env.example).')
   process.exit(1)
 }
 
