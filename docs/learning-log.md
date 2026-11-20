@@ -177,3 +177,177 @@ Not applicable
 
 **Related Git commit**
 b261202 — Connect VISUALS gallery to Instagram posts
+
+## 2026-11-18 — [QA] — Mini QA project: requirement, test cases and manual execution in Squash TM
+
+**Task**
+First concrete project for my junior software tester portfolio, alongside my ENI training (sessions of 2026-11-17 and 2026-11-18). Feature under test: automatic categorisation of Instagram carousels in the VISUALS gallery, based on the hashtags in the post captions. The scope is deliberately limited to this feature, to carry out a complete QA approach, from requirements to automation.
+
+**My role**
+Environment setup (guided):
+- Installed my own Squash TM Community environment on Ubuntu, with Docker and PostgreSQL, following ChatGPT's guidance for the commands and technical configuration
+
+Test design and execution (done personally, reviewed with ChatGPT):
+- Created the Meily Lab QA project in Squash TM
+- Wrote the functional requirement `REQ-001` (automatic categorisation of carousels)
+- Designed three test cases, one per category: TC-001 MAIN, TC-002 ASTROLOGY, TC-003 COLLABS (description, preconditions, actions, expected results)
+- Linked the test cases to the requirement
+- Created a test campaign and an iteration
+- Executed the three test cases manually
+
+For the design work, I proposed my own answers and choices; we then reviewed them together and corrected them when needed.
+
+**AI-assisted work**
+- ChatGPT provided the commands and configuration steps for the Docker / PostgreSQL / Squash TM installation
+- ChatGPT acted as a reviewer for the requirement and test cases; it did not do the work in Squash TM for me
+
+**Tools / concepts**
+Squash TM Community, Docker, PostgreSQL, Ubuntu, requirement, test case, requirement–test case traceability, test campaign, iteration, manual test execution
+
+**Result**
+Status: done and validated.
+- Three test cases executed manually (iteration IT-001), three passed
+- The tests cover the gallery categories and their matching hashtags; full details are kept in Squash TM
+- These tests are manual only: they are not automated at this stage
+- Update: the MAIN, ASTROLOGY and COLLABS cases were automated with Playwright on 2026-11-20, see the corresponding entry
+
+**What I learned**
+2026-11-17:
+- How to set up a local Squash TM environment using Docker and PostgreSQL
+- The difference between a Docker image and a container, and how to check container status and logs
+- Started understanding how to structure a QA project and write testable functional requirements
+- A running Docker container does not necessarily mean the application is ready to use
+
+2026-11-18:
+- How to organise requirements, test cases, campaigns, iterations and manual executions in Squash TM
+- The difference between test data and parameterised datasets
+- Practised writing test objectives, prerequisites, actions and expected results
+
+**Related QA exercise**
+Not applicable (Squash TM project, not a QA-XXX exercise)
+
+**Related Git commit**
+Not applicable (work done in Squash TM)
+
+## 2026-11-18 — [TOOLING] — Start of Playwright automation in TypeScript (TC-001 in progress)
+
+**Task**
+Start automating the test cases of the mini QA project with Playwright, in VS Code (sessions of 2026-11-17 and 2026-11-18).
+
+**My role**
+Done personally in VS Code:
+- Checked Node.js, npm and Playwright Test
+- Checked the structure of the `meily-lab` project
+- Discovered and used the VS Code Testing panel
+- Created `playwright.config.ts` by hand (tests folder `./tests`, Chromium browser)
+- Created `tests/carousels.spec.ts` by hand
+- Started writing the first automated test, TC-001 (MAIN category)
+- Wrote every line of TypeScript myself
+
+Learning method used:
+1. I type each instruction myself
+2. Each word and symbol is explained to me (parentheses, braces, commas, dots, operators, quotes, etc.)
+3. I say out loud, in French, what I am writing, to understand exactly what I am asking the program to do
+4. We check my understanding before moving on
+
+This method links my first algorithmics lessons to JavaScript / TypeScript instructions. The goal is real understanding of the code, not copying scripts I could not explain.
+
+**AI-assisted work**
+ChatGPT acted as a step-by-step trainer and explained the code; it did not write the code for me.
+
+**Tools / concepts**
+VS Code, VS Code Testing panel, Node.js, npm, Playwright Test, TypeScript. Concepts started: `import`, `test`, `expect`, `async`, `await`, `page`, `goto`, `const`, Playwright selectors.
+
+**Result**
+Status: started, not finished.
+- `playwright.config.ts` and `tests/carousels.spec.ts` exist (not committed yet)
+- TC-001 is being written: it currently opens the VISUALS page and clicks on MAIN; it has no assertion yet
+- TC-001 has not been run or validated yet
+- The older JavaScript test `tests/home.spec.js` is kept
+
+Decisions taken:
+- Learn automation in TypeScript
+- Group the automated tests in `tests/carousels.spec.ts`, with separate test blocks
+- Really check the relation between hashtag and displayed category, not just replay clicks; the technical method for comparing with the Instagram data is still to be defined
+- Try three complementary methods:
+  - TC-001 — MAIN: written by hand, instruction by instruction, to understand the syntax, actions and assertions
+  - TC-002 — ASTROLOGY: Playwright Codegen, then review, understand, complete and correct the generated code if needed
+  - TC-003 — COLLABS: consolidation, reusing what I learned with the first two methods to gain autonomy
+
+Next steps (planned):
+- Finish writing TC-001 by hand
+- Run it and check its assertions
+- Discover Playwright Codegen with ASTROLOGY
+- Consolidate with COLLABS
+- Run and analyse the automated tests
+- Prepare the material for the QA portfolio: requirements, test cases, manual results, scripts and automated results
+
+**What I learned**
+2026-11-18:
+- Discovered the Testing panel in VS Code and configured Playwright to recognise my tests
+- Started learning TypeScript syntax, including imports, functions, objects, `async`, `await` and Playwright locators
+- How to identify HTML elements to prepare automated tests
+
+**Related QA exercise**
+Not applicable
+
+**Related Git commit**
+Not available on 2026-11-18. Update: the tests were finished and committed on 2026-11-20, see the next entry.
+
+## 2026-11-20 — [QA] — Mini QA project: Playwright automation, investigation of failures and validation
+
+**Task**
+Continuation of the mini QA project on `REQ-001` (automatic categorisation of Instagram carousels in the VISUALS gallery). Automate the checks of the MAIN, ASTROLOGY and COLLABS categories with Playwright, investigate the first failures, then validate and version the work.
+
+**My role**
+Playwright code (written by hand, guided):
+- Wrote the code manually in VS Code, line by line, with ChatGPT guiding the configuration and explaining each instruction
+- Finished TC-001 (MAIN) in `tests/carousels.spec.ts`: the test opens the published VISUALS page, finds the MAIN heading and its gallery, reads the `data-id` of the displayed cards, selects in `src/data/instagram.json` the posts whose caption contains `#meily_main`, and compares the two sorted lists of IDs
+- Covered ASTROLOGY and COLLABS with a `categories` array (name + hashtag) and a `for` loop, worked out with ChatGPT, instead of repeating the same code
+- Progression: at first I needed detailed explanations of syntax and functions; I then started to recognise repeated structures, anticipate some instructions and see how to reuse existing logic. I am still a beginner in JavaScript / TypeScript and Playwright and cannot yet write these automations fully on my own.
+
+Execution and investigation (done personally):
+- Ran the tests myself: MAIN passed, ASTROLOGY and COLLABS failed
+- Investigated the failures by comparing expected and displayed IDs, using the Playwright results, the JSON files and the browser DevTools
+- Recognised that some collaborations had been added manually, without hashtag, and confirmed this hypothesis in DevTools: these COLLABS cards have IDs like `collab-01`, `collab-02`, `collab-03` (collaborations published from a collaborator's account, stored in `src/data/collabs.json`)
+- Searched the other failing IDs in `instagram.json`, found they were missing, and linked this to the daily automatic Instagram sync: recent posts shown online were not yet in my local data
+- Both causes were identified from my own observations and my knowledge of how the site works
+
+Fix, validation and versioning (done in my terminal, guided):
+- Adapted the COLLABS comparison to exclude only the IDs starting with `collab-`; Instagram posts are still compared
+- Ran `npm run instagram` to update the local data
+- Ran the tests again: the three tests passed
+- Committed the images, data and tests with Git, pushed to GitHub, and configured GitHub CLI authentication on Ubuntu
+
+**AI-assisted work**
+- ChatGPT guided the Playwright configuration and explained the code I wrote
+- After I identified the causes, ChatGPT guided the technical steps to fix them: updating the local data and adapting the COLLABS comparison to the scope of `REQ-001`
+- ChatGPT guided the Git commands (staging the images, commits, push), finding and running the Instagram script, and the GitHub CLI authentication
+- The `sync-and-deploy.yml` workflow (daily sync and deployment) was developed earlier with Claude Code (2026-11-17, commit b4e8c68), as was `scripts/fetch-instagram.js` (see 2026-11-05 entry); they are not my own implementation
+
+**Autonomy summary**
+- Most autonomous: design and execution of the manual tests, identification of the causes of failure
+- Still guided: Playwright programming, Git commands, some configuration steps
+
+**Tools / concepts**
+Playwright Test, TypeScript, VS Code, browser DevTools, JSON import in a test (`with { type: 'json' }`), locators (`getByRole`, `locator`), `evaluateAll`, `filter` / `map`, `sort`, `toEqual` assertion, array of objects + `for…of` loop, template literal for test names, ternary operator, test data vs displayed data, GitHub Actions (scheduled run), Git, GitHub CLI
+
+**Result**
+Status: done and validated.
+- Three automated tests in `tests/carousels.spec.ts`: `TC-001 - Classement MAIN`, `Classement ASTROLOGY`, `Classement COLLABS`. All three pass.
+- Two causes of failure identified, both about test data and test scope, not a demonstrated categorisation defect on the site:
+  1. Manual COLLABS cards (`collab-…` IDs) are outside the hashtag mechanism covered by `REQ-001`
+  2. The local `instagram.json` was older than the published site, which is updated by the workflow every day at 5:00 UTC (6:00 in Paris in winter). Running `npm run instagram` updated it: 51 posts received, 34 categorised by hashtag, 201 images referenced
+
+**What I learned**
+- A failing automated test does not necessarily mean the application is wrong: the reference data or the test scope can be the cause
+- Automated tests that compare with a data file depend on that file being up to date with the tested environment
+- How to use DevTools to check element attributes (`data-id`) during an investigation
+- An array and a loop avoid repeating the same test code for each category
+
+**Related QA exercise**
+Not applicable (Squash TM project, not a QA-XXX exercise)
+
+**Related Git commit**
+- b7862cf — Add Instagram gallery images (129 image files)
+- a35e82a — Add Playwright carousel tests and sync Instagram data (new images, updated `instagram.json`, `tests/carousels.spec.ts`, `playwright.config.ts`)
