@@ -14,12 +14,18 @@
   color: var(--off-white);
 }
 
-.qa {
+/* Couleurs partagées par la page et la fenêtre de l'étude de cas */
+.qa,
+.case {
   --line: rgba(236, 232, 224, 0.28);
   --muted: rgba(211, 214, 218, 0.8);
   /* couleur d'accent : bleu acier désaturé (à la place du sable de DEV) */
   --accent: #84b4dd;
+  /* vert sauge : uniquement pour les tests réussis */
+  --passed: #b4c9ab;
+}
 
+.qa {
   max-width: 1080px;
   margin: 0 auto;
   padding: 48px 8vw 120px;
@@ -76,6 +82,14 @@
   font-size: 1rem;
   letter-spacing: 0.08em;
   color: var(--cool-grey);
+}
+
+/* Phrase de présentation : collée à la ligne du dessus, texte un peu plus doux */
+.qa__header .qa__intro {
+  max-width: 52ch;
+  margin-top: 12px;
+  line-height: 1.7;
+  color: var(--muted);
 }
 
 /* Sections : numéro + titre à gauche, contenu à droite */
@@ -167,11 +181,6 @@
   color: var(--accent);
 }
 
-/* Lignes provisoires : texte atténué */
-.is-placeholder td:not(.register__id) {
-  color: rgba(236, 232, 224, 0.5);
-}
-
 /* Étiquette de statut */
 .status {
   display: inline-block;
@@ -185,21 +194,510 @@
   color: var(--accent);
 }
 
-/* Statut provisoire : cadre en pointillés */
-.status--placeholder {
-  border-style: dashed;
-  border-color: rgba(236, 232, 224, 0.35);
-  color: rgba(236, 232, 224, 0.55);
+/* ---------- QA LAB : bloc projet ---------- */
+
+.project {
+  position: relative;
+  padding: 32px 0 28px;
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+  transition: background-color 0.3s;
 }
 
-/* Section vide */
-.empty {
-  margin: 0;
-  padding: 20px 24px;
-  border: 1px dashed rgba(236, 232, 224, 0.3);
-  font-size: 0.9rem;
+.project:hover {
+  background-color: rgba(236, 232, 224, 0.03);
+}
+
+/* Contour visible quand on arrive sur le bloc au clavier */
+.project:has(.project__open:focus-visible) {
+  outline: 1px solid var(--accent);
+  outline-offset: 8px;
+}
+
+.project__title {
+  margin: 20px 0 0;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+}
+
+.project__subtitle {
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  font-style: italic;
   letter-spacing: 0.04em;
-  color: rgba(236, 232, 224, 0.55);
+  color: var(--accent);
+}
+
+.project__summary {
+  max-width: 60ch;
+  margin: 28px 0 0;
+  line-height: 1.7;
+  color: var(--cool-grey);
+}
+
+.project__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.project__tools {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* Le bouton recouvre tout le bloc (::after) : un clic n'importe où ouvre la fenêtre */
+.project__open {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.project__open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.project__open:focus-visible {
+  outline: none;
+}
+
+.icon {
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+}
+
+.project:hover .project__open .icon {
+  transform: translate(2px, -2px);
+}
+
+.project__open .icon {
+  transition: transform 0.3s;
+}
+
+/* Chiffres clés : grands nombres fins, séparés par des lignes verticales */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 36px 0 0;
+}
+
+.stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 20px;
+  border-left: 1px solid var(--line);
+}
+
+.stats > div:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.stats dd {
+  order: -1;
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats dt {
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cool-grey);
+}
+
+.stats dt span {
+  display: block;
+  margin-top: 4px;
+  text-transform: none;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.stats--compact {
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 0 40px;
+}
+
+.stats__text {
+  font-size: 1.1rem !important;
+  line-height: 1.4 !important;
+  padding-top: 0.6rem;
+}
+
+/* Réussites : vert sauge (statut PASSED et résultats 3/3) */
+.status--passed {
+  border-color: var(--passed);
+  color: var(--passed);
+}
+
+.stats dd.is-passed {
+  color: var(--passed);
+}
+
+/* ---------- Fenêtre de l'étude de cas ---------- */
+
+/* Pas de défilement de la page derrière la fenêtre */
+html:has(.case[open]) {
+  overflow: hidden;
+}
+
+.case {
+  width: min(1040px, calc(100vw - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-top-color: var(--accent);
+  /* même gris quadrillé que la page */
+  background-color: #63676d;
+  background-image:
+    linear-gradient(rgba(236, 232, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236, 232, 224, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--off-white);
+  font-weight: 300;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.case::backdrop {
+  background: rgba(30, 34, 40, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.case[open] {
+  animation: case-in 0.3s ease-out;
+}
+
+@keyframes case-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.case__inner {
+  position: relative;
+  padding: 56px 64px 72px;
+}
+
+.case__close {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 44px;
+  height: 44px;
+  margin: -32px -40px 0 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: #63676d;
+  color: var(--off-white);
+  cursor: pointer;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
+}
+
+.case__close svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+}
+
+.case__close:hover,
+.case__close:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+
+.case__header {
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+}
+
+.case__header h2 {
+  margin: 20px 0 0;
+  font-weight: 300;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+}
+
+.case__header > p {
+  margin: 12px 0 0;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+/* Bloc « projet expérimental » sous le titre */
+.case__context {
+  max-width: 68ch;
+  margin-top: 28px;
+  padding: 14px 0 2px 18px;
+  border-left: 1px solid var(--accent);
+}
+
+.case__context p {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--cool-grey);
+}
+
+/* Sections de l'étude de cas : numéro + titre à gauche, contenu à droite */
+.case-section {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 40px;
+  padding: 36px 0 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.case-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.case-section__index {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-section h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Titres des étapes : noir */
+.case-section h3 {
+  color: #000;
+}
+
+.case-section__body {
+  line-height: 1.7;
+  color: var(--cool-grey);
+}
+
+.case-section__body > :first-child {
+  margin-top: 0;
+}
+
+.case-section__body p {
+  margin: 0 0 20px;
+}
+
+.case code {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  color: var(--off-white);
+}
+
+/* Correspondance hashtag → catégorie */
+.mapping {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.mapping li {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.mapping li span {
+  letter-spacing: 0.2em;
+  color: var(--off-white);
+}
+
+.ref {
+  margin-right: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.text-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+
+.case .register {
+  margin-bottom: 32px;
+}
+
+.steps {
+  margin: 0 0 20px;
+  padding-left: 1.4em;
+}
+
+.steps li {
+  padding: 4px 0;
+}
+
+.steps li::marker {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Captures utilisées comme preuves */
+.evidence {
+  margin: 8px 0 32px;
+}
+
+/* Squash TM : petite vue d'ensemble, puis détail recadré bien lisible */
+.evidence--context {
+  max-width: 440px;
+  margin-bottom: 24px;
+}
+
+.evidence--detail img {
+  /* pas d'agrandissement au-delà de la taille réelle : le texte resterait flou */
+  max-width: 1022px;
+  background: #fff;
+}
+
+/* Grands écrans : captures et code s'étendent sous la colonne des titres
+   (marge négative = largeur de cette colonne + l'espace entre les colonnes) */
+@media (min-width: 861px) {
+  .case-section .evidence,
+  .case-section .code {
+    margin-left: -240px;
+  }
+}
+
+.evidence img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.evidence figcaption,
+.code figcaption {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* Extrait de code : fond sombre discret, défilement horizontal si besoin */
+.code {
+  margin: 8px 0 32px;
+  border: 1px solid var(--line);
+  background: rgba(30, 34, 40, 0.4);
+}
+
+.code figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.code pre {
+  margin: 0;
+  padding: 18px 16px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.code pre:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+/* Investigation : deux constats côte à côte */
+.findings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 8px 0 24px;
+}
+
+.finding {
+  padding: 20px 0 4px;
+  border-top: 1px solid var(--accent);
+}
+
+.finding h4 {
+  margin: 12px 0 12px;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--off-white);
+}
+
+.finding__action {
+  color: var(--off-white);
+}
+
+.note {
+  padding-left: 16px;
+  border-left: 1px solid var(--accent);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.list--small {
+  margin-bottom: 28px;
+  font-size: 0.95rem;
 }
 
 /* Écrans moyens : titre de section au-dessus du contenu */
@@ -213,6 +711,36 @@
     flex-direction: row;
     align-items: baseline;
     gap: 20px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 28px;
+  }
+
+  .stats > div:nth-child(odd) {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .case__inner {
+    padding: 48px 40px 56px;
+  }
+
+  .case-section {
+    /* minmax(0, …) : le bloc de code ne peut pas élargir la colonne */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .case-section__index {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .findings {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -251,5 +779,54 @@
   .list__row {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+
+  /* Fenêtre en plein écran sur mobile */
+  .case {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    border: none;
+  }
+
+  .case__inner {
+    padding: 24px 20px 48px;
+  }
+
+  .case__close {
+    margin: 0 -4px 0 0;
+  }
+
+  .case__header h2 {
+    margin-top: 16px;
+  }
+
+  .stats--compact {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .stats--compact > div {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .mapping li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .code pre {
+    font-size: 0.75rem;
+  }
+
+  /* Détail Squash TM : garde une taille lisible, on fait glisser l'image de côté */
+  .evidence--detail {
+    overflow-x: auto;
+  }
+
+  .evidence--detail img {
+    width: 760px;
+    max-width: none;
   }
 }

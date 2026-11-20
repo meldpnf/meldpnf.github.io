@@ -15,19 +15,55 @@ const repoLink = repoUrl
   ? `<a class="project__link" href="${repoUrl}" target="_blank" rel="noopener noreferrer">View repository ↗</a>`
   : `<span class="project__link project__link--disabled">View repository ↗</span>`
 
-// Apprentissages DEV : résumés courts du journal docs/learning-log.md
+// Évolution de Meily Lab, du plus récent au plus ancien (dates vérifiées dans Git)
 const progress = [
   {
-    date: '2026-10-10',
+    date: '2026-11-20',
+    category: 'QA',
+    title: 'Playwright tests and QA page',
+    text: 'Wrote Playwright tests by hand, with guidance, for the VISUALS categories. Interactive QA case study integrated into the QA page with Claude Code.',
+  },
+  {
+    date: '2026-11-17',
+    category: 'TOOLING',
+    title: 'Automated sync and deployment',
+    text: 'GitHub Actions fetches Instagram, Spotify and YouTube data and publishes the site daily at 6:00 (Paris). Built with Claude Code.',
+  },
+  {
+    date: '2026-11-17',
     category: 'DEV',
-    title: 'Homepage typography and textures',
-    text: 'Defined the visual direction, compared 11 fonts and reviewed AI-assisted CSS iterations. Learned that optical alignment can differ from measured alignment.',
+    title: 'CONTACT page',
+    text: 'Contact form (sending not connected yet) and email link. Built with Claude Code.',
+  },
+  {
+    date: '2026-11-05',
+    category: 'DEV',
+    title: 'VISUALS connected to Instagram',
+    text: 'Posts sorted by hashtag, with carousels and credited collabs. I tagged my posts and chose the layout; built with Claude Code.',
+  },
+  {
+    date: '2026-10-30',
+    category: 'DEV',
+    title: 'MUSIC connected to Spotify and YouTube',
+    text: 'I set up the APIs and tagged my Shorts; the fetch script and video player were built with Claude Code.',
+  },
+  {
+    date: '2026-10-20',
+    category: 'DEV',
+    title: 'SOCIAL case studies',
+    text: 'MEILY and CATHY case-study pages. Built with Claude Code.',
+  },
+  {
+    date: '2026-10-14',
+    category: 'DEV',
+    title: 'VISUALS, MUSIC and QA pages',
+    text: 'I defined structure and visual direction and edited some CSS; built with Claude Code.',
   },
   {
     date: '2026-10-10',
-    category: 'TOOLING',
-    title: 'Work environment and workflow',
-    text: 'Prepared my work environment and an AI-assisted workflow, driving Claude Code from the terminal and VS Code.',
+    category: 'DEV',
+    title: 'Homepage and workflow',
+    text: 'Defined the visual direction, compared 11 fonts and set up an AI-assisted workflow with Claude Code.',
   },
 ]
 
